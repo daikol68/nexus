@@ -1,0 +1,183 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.sonatype.nexus</groupId>
+    <artifactId>nexus</artifactId>
+    <version>3.13.0</version>
+    <packaging>rpm</packaging>
+    <name>Sonatype Nexus OSS</name>
+
+    <scm>
+        <connection>scm:svn:https://svn3.sliksvn.com/davidkowol_infra/NexusOSS/trunk</connection>
+    </scm>
+
+    <parent>
+        <groupId>de.daikol</groupId>
+        <artifactId>daikol-pom</artifactId>
+        <version>1.0.2</version>
+    </parent>
+
+    <properties>
+        <rpm.user>nexus</rpm.user>
+        <rpm.group>nexus</rpm.group>
+        <rpm.uid>503</rpm.uid>
+        <rpm.gid>503</rpm.gid>
+        <rpm.home>/home/${rpm.user}</rpm.home>
+    </properties>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+
+                <configuration>
+
+                    <provides>
+                        <provide>${rpm.name}</provide>
+                    </provides>
+
+                    <defaultGroupname>${rpm.group}</defaultGroupname>
+                    <defaultUsername>${rpm.user}</defaultUsername>
+
+                    <defaultDirmode>0740</defaultDirmode>
+                    <defaultFilemode>0740</defaultFilemode>
+
+                    <mappings>
+
+                        <mapping>
+                            <directory>${rpm.home}</directory>
+                        </mapping>
+
+                        <mapping>
+                            <directory>${rpm.home}</directory>
+                            <sources>
+                                <source>
+                                    <location>src/main/resources/nexus-3.13.0-01</location>
+                                </source>
+                            </sources>
+                        </mapping>
+
+                        <mapping>
+                            <directory>/etc/init.d</directory>
+                            <username>root</username>
+                            <groupname>root</groupname>
+                            <directoryIncluded>false</directoryIncluded>
+                            <sources>
+                                <softlinkSource>
+                                    <location>${rpm.home}/bin/${rpm.name}</location>
+                                    <destination>${rpm.name}</destination>
+                                </softlinkSource>
+                            </sources>
+                        </mapping>
+
+                    </mappings>
+
+                    <preinstallScriptlet>
+                        <script>
+                            <![CDATA[
+    if [ "$1" = "1" ]; then
+        echo "Beginne mit der Installation von %{name} %{version}-%{release}."
+        echo ""
+
+        echo "Prüfe ob die Gruppe '${rpm.group}' bereits existiert."
+        cat /etc/group | cut -d":" -f1 | grep ${rpm.group} 2>&1 > /dev/null
+        if [ $? -eq 0 ]; then
+            echo "Die Gruppe '${rpm.group}' konnte gefunden werden und wird nicht erneut angelegt."
+        else
+            echo "Es existiert noch keine Gruppe '${rpm.group}'... Diese wird nun angelegt."
+
+            groupadd -g ${rpm.gid} -r ${rpm.group} 2>&1 > /dev/null
+            if [ $? -ne 0 ]; then
+                echo "Konnte die Gruppe '${rpm.group}' nicht anlegen... breche ab."
+            fi
+        fi
+        echo ""
+
+        echo "Prüfe ob der User '${rpm.user}' bereits existiert."
+        cat /etc/passwd | cut -d":" -f1 | grep ${rpm.user} 2>&1 > /dev/null
+        if [ $? -eq 0 ]; then
+            echo "Der User '${rpm.user}' konnte gefunden werden und wird nicht erneut angelegt."
+        else
+            echo "Es existiert noch kein User '${rpm.user}'... Dieser wird nun angelegt."
+
+            useradd -m ${rpm.home} -g ${rpm.gid} -u ${rpm.uid} -s /bin/bash -r ${rpm.user} 2>&1 > /dev/null
+            if [ $? -ne 0 ]; then
+                echo "Konnte den User '${rpm.user}' nicht anlegen... breche ab."
+            fi
+        fi
+        echo ""
+    fi
+
+    if [ "$1" = "2" ]; then
+        echo "Beginne mit dem Update von %{name} auf Version %{version}-%{release}."
+        echo ""
+
+        pgrep -f "java.*nexus-bootstrap" 2>&1 > /dev/null
+        if [ $? -eq 0 ]; then
+            echo "Eine laufende Instanz wurde gefunden. Diese wird nun beendet."
+            /etc/init.d/${rpm.name} stop
+        else
+            echo "Es konnte keine laufende Instanz gefunden werden."
+        fi
+    fi
+]]>
+                        </script>
+                    </preinstallScriptlet>
+                    <postinstallScriptlet>
+                        <script>
+                            <![CDATA[
+    if [ "$1" = "1" ]; then
+        echo "Die Installation von %{name} %{version}-%{release} ist abgeschlossen."
+        echo ""
+        echo "Füge die Anwendung ${rpm.name} als Service hinzu, da es sich um die Erstinstallation handelt."
+        chkconfig --add ${rpm.name}
+        echo ""
+    fi
+
+    if [ "$1" = "2" ]; then
+        echo "Das Update von %{name} auf Version %{version}-%{release} ist abgeschlossen."
+        echo ""
+    fi
+
+    echo "Starte nun die Anwendung."
+    /etc/init.d/${rpm.name} start
+    echo ""
+]]>
+                        </script>
+                    </postinstallScriptlet>
+
+                    <preremoveScriptlet>
+                        <script>
+                            <![CDATA[
+    if [ "$1" = "1" ]; then
+        echo "Entferne nun die Dateien der alten Version von %{name}."
+        echo ""
+    else
+        echo "Beginne mit der Deinstallation von %{name} %{version}-%{release}."
+        echo "Entferne ${rpm.name} als Service."
+        chkconfig --del ${rpm.name}
+        echo ""
+    fi
+]]>
+                        </script>
+                    </preremoveScriptlet>
+                    <postremoveScriptlet>
+                        <script>
+                            <![CDATA[
+    if [ "$1" = "1" ]; then
+        echo "Das entfernen der alten Dateien von %{name} ist abgeschlossen."
+        echo ""
+    else
+        echo "Die Deinstallation von %{name} %{version}-%{release} ist abgeschlossen."
+        echo ""
+    fi
+]]>
+                        </script>
+                    </postremoveScriptlet>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
