@@ -8,7 +8,7 @@
     <name>Sonatype Nexus OSS</name>
 
     <scm>
-        <connection>scm:svn:https://svn3.sliksvn.com/davidkowol_infra/NexusOSS/trunk</connection>
+        <connection>scm:git:https://github.com/daikol68/nexus</connection>
     </scm>
 
     <parent>
