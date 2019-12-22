@@ -14,10 +14,11 @@
     <parent>
         <groupId>de.daikol</groupId>
         <artifactId>daikol-pom</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
     </parent>
 
     <properties>
+        <rpm.name>${artifactId}</rpm.name>
         <rpm.user>nexus</rpm.user>
         <rpm.group>nexus</rpm.group>
         <rpm.uid>503</rpm.uid>
