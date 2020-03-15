@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.6.0" name="nexus-orient">
+    <feature name="nexus-orient" description="org.sonatype.nexus:nexus-orient" install="featureFlag:nexus.orient.enabled" version="3.21.1.01">
+        <details>org.sonatype.nexus:nexus-orient</details>
+        <bundle>mvn:org.sonatype.nexus/nexus-orient/3.21.1-01</bundle>
+        <bundle>mvn:com.orientechnologies/orientdb-core/2.2.36</bundle>
+        <bundle>mvn:net.java.dev.jna/jna/4.5.0</bundle>
+        <bundle>mvn:net.java.dev.jna/jna-platform/4.5.0</bundle>
+        <bundle>mvn:com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru/1.4.2</bundle>
+        <bundle>mvn:com.orientechnologies/orientdb-server/2.2.36</bundle>
+        <bundle>mvn:com.orientechnologies/orientdb-client/2.2.36</bundle>
+        <bundle>mvn:com.sun.istack/istack-commons-runtime/2.16</bundle>
+        <bundle>mvn:com.sun.xml.fastinfoset/FastInfoset/1.2.13</bundle>
+        <bundle>mvn:com.orientechnologies/orientdb-tools/2.2.36</bundle>
+        <bundle>mvn:com.fasterxml.jackson.core/jackson-databind/2.9.2</bundle>
+        <bundle>mvn:com.orientechnologies/orientdb-jdbc/2.2.36</bundle>
+    </feature>
+</features>

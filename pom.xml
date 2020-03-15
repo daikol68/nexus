@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sonatype.nexus</groupId>
     <artifactId>nexus</artifactId>
-    <version>3.13.0-SNAPSHOT</version>
+    <version>3.21.1-SNAPSHOT</version>
     <packaging>rpm</packaging>
     <name>Sonatype Nexus OSS</name>
 
@@ -21,8 +21,8 @@
         <rpm.name>${artifactId}</rpm.name>
         <rpm.user>nexus</rpm.user>
         <rpm.group>nexus</rpm.group>
-        <rpm.uid>503</rpm.uid>
-        <rpm.gid>503</rpm.gid>
+        <rpm.uid>506</rpm.uid>
+        <rpm.gid>506</rpm.gid>
         <rpm.home>/home/${rpm.user}</rpm.home>
     </properties>
 
@@ -55,7 +55,7 @@
                             <directory>${rpm.home}</directory>
                             <sources>
                                 <source>
-                                    <location>src/main/resources/nexus-3.13.0-01</location>
+                                    <location>src/main/resources/nexus-3.21.1-01</location>
                                 </source>
                             </sources>
                         </mapping>

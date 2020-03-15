@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.6.0" name="nexus-pro-feature">
+    <feature name="nexus-pro-feature" description="com.sonatype.nexus.assemblies:nexus-pro-feature" version="3.21.1.01">
+        <details>com.sonatype.nexus.assemblies:nexus-pro-feature</details>
+        <feature prerequisite="true">nexus-core-feature</feature>
+        <feature version="3.21.1.01">nexus-ldap-plugin</feature>
+        <feature version="3.21.1.01">nexus-proui-plugin</feature>
+        <feature version="3.21.1.01">nexus-proximanova-plugin</feature>
+        <feature version="3.21.1.01">nexus-licensing-plugin</feature>
+        <feature version="3.21.1.01">nexus-migration-plugin</feature>
+        <feature version="3.21.1.01">nexus-outreach-plugin</feature>
+        <feature version="3.21.1.01">nexus-rutauth-plugin</feature>
+        <feature version="3.21.1.01">nexus-crowd-plugin</feature>
+        <feature version="3.21.1.01">nexus-usertoken-plugin</feature>
+        <feature version="3.21.1.01">nexus-blobstore-group</feature>
+        <feature version="3.21.1.01">nexus-pro-system-checks-plugin</feature>
+        <feature version="3.21.1.01">nexus-analytics-plugin</feature>
+        <feature version="3.21.1.01">nexus-saml-plugin</feature>
+        <feature version="3.21.1.01" prerequisite="false" dependency="false">nexus-pro-datastore-plugin</feature>
+    </feature>
+    <feature name="nexus-ldap-plugin" description="com.sonatype.nexus.plugins:nexus-ldap-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-ldap-plugin</details>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-ldap-plugin/3.21.1-01</bundle>
+    </feature>
+    <feature name="nexus-proui-plugin" description="com.sonatype.nexus.plugins:nexus-proui-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-proui-plugin</details>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-proui-plugin/3.21.1-01</bundle>
+    </feature>
+    <feature name="nexus-proximanova-plugin" description="com.sonatype.nexus.plugins:nexus-proximanova-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-proximanova-plugin</details>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-proximanova-plugin/3.21.1-01</bundle>
+    </feature>
+    <feature name="nexus-crowd-plugin" description="com.sonatype.nexus.plugins:nexus-crowd-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-crowd-plugin</details>
+        <bundle>wrap:mvn:com.atlassian.crowd.client/atlassian-crowd-rest-client/1.1$Bundle-SymbolicName=atlassian-crowd-rest-client&amp;Fragment-Host=com.sonatype.nexus.plugins.nexus-crowd-plugin</bundle>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-crowd-plugin/3.21.1-01</bundle>
+        <bundle>mvn:org.apache.commons/commons-lang3/3.4</bundle>
+        <bundle>mvn:com.google.guava/guava/25.0-jre</bundle>
+    </feature>
+    <feature name="nexus-licensing-plugin" description="com.sonatype.nexus.plugins:nexus-licensing-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-licensing-plugin</details>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-licensing-plugin/3.21.1-01</bundle>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-analytics-plugin/3.21.1-01</bundle>
+        <bundle>mvn:org.sonatype.nexus.plugins/nexus-coreui-plugin/3.21.1-01</bundle>
+    </feature>
+    <feature name="nexus-migration-plugin" description="com.sonatype.nexus.plugins:nexus-migration-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-migration-plugin</details>
+        <feature prerequisite="true" dependency="false">wrap</feature>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-migration-plugin/3.21.1-01</bundle>
+        <bundle>mvn:org.sonatype.nexus/nexus-rest-client/3.21.1-01</bundle>
+        <bundle>wrap:mvn:org.jboss.resteasy/resteasy-jaxrs-services/3.1.3.Final</bundle>
+        <bundle>mvn:com.fasterxml.jackson.dataformat/jackson-dataformat-smile/2.9.2</bundle>
+        <bundle>mvn:com.fasterxml.jackson.core/jackson-core/2.9.2</bundle>
+        <bundle>mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-smile-provider/2.9.2</bundle>
+        <bundle>mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/2.9.2</bundle>
+        <bundle>mvn:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/2.9.2</bundle>
+        <bundle>mvn:org.apache.commons/commons-lang3/3.4</bundle>
+    </feature>
+    <feature name="nexus-outreach-plugin" description="com.sonatype.nexus.plugins:nexus-outreach-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-outreach-plugin</details>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-outreach-plugin/3.21.1-01</bundle>
+    </feature>
+    <feature name="nexus-rutauth-plugin" description="com.sonatype.nexus.plugins:nexus-rutauth-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-rutauth-plugin</details>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-rutauth-plugin/3.21.1-01</bundle>
+    </feature>
+    <feature name="nexus-usertoken-plugin" description="com.sonatype.nexus.plugins:nexus-usertoken-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-usertoken-plugin</details>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-usertoken-plugin/3.21.1-01</bundle>
+    </feature>
+    <feature name="nexus-blobstore-group" description="com.sonatype.nexus.plugins:nexus-blobstore-group" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-blobstore-group</details>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-blobstore-group/3.21.1-01</bundle>
+    </feature>
+    <feature name="nexus-pro-system-checks-plugin" description="com.sonatype.nexus.plugins:nexus-pro-system-checks-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-pro-system-checks-plugin</details>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-pro-system-checks-plugin/3.21.1-01</bundle>
+        <bundle>mvn:io.dropwizard.metrics/metrics-healthchecks/4.1.0</bundle>
+        <bundle>mvn:io.dropwizard.metrics/metrics-core/4.1.0</bundle>
+    </feature>
+    <feature name="nexus-analytics-plugin" description="com.sonatype.nexus.plugins:nexus-analytics-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-analytics-plugin</details>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-analytics-plugin/3.21.1-01</bundle>
+        <bundle>mvn:org.sonatype.nexus.plugins/nexus-coreui-plugin/3.21.1-01</bundle>
+    </feature>
+    <feature name="nexus-saml-plugin" description="com.sonatype.nexus.plugins:nexus-saml-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-saml-plugin</details>
+        <feature prerequisite="true" dependency="false">wrap</feature>
+        <bundle>wrap:mvn:org.keycloak/keycloak-saml-servlet-filter-adapter/8.0.1$Bundle-SymbolicName=org.keycloak.keycloak-servlet-filter-adapter</bundle>
+        <bundle>wrap:mvn:org.keycloak/keycloak-saml-adapter-core/8.0.1$Bundle-SymbolicName=keycloak-saml-adapter-core</bundle>
+        <bundle>wrap:mvn:org.keycloak/keycloak-saml-adapter-api-public/8.0.1$Fragment-Host=keycloak-saml-adapter-core</bundle>
+        <bundle>wrap:mvn:org.keycloak/keycloak-adapter-spi/8.0.1$overwrite=merge&amp;Import-Package=org.jboss.logging,*</bundle>
+        <bundle>wrap:mvn:org.keycloak/keycloak-common/8.0.1$overwrite=merge&amp;Import-Package=org.jboss.logging,*</bundle>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-saml-plugin/3.21.1-01</bundle>
+        <bundle>mvn:org.keycloak/keycloak-servlet-adapter-spi/8.0.1</bundle>
+        <bundle>wrap:mvn:org.keycloak/keycloak-saml-core/8.0.1</bundle>
+        <bundle>wrap:mvn:org.keycloak/keycloak-saml-core-public/8.0.1</bundle>
+        <bundle>mvn:org.apache.santuario/xmlsec/2.1.4</bundle>
+    </feature>
+    <feature name="nexus-pro-datastore-plugin" description="com.sonatype.nexus.plugins:nexus-pro-datastore-plugin" version="3.21.1.01">
+        <details>com.sonatype.nexus.plugins:nexus-pro-datastore-plugin</details>
+        <feature prerequisite="true" dependency="false">wrap</feature>
+        <bundle>mvn:com.sonatype.nexus.plugins/nexus-pro-datastore-plugin/3.21.1-01</bundle>
+        <bundle>mvn:com.sonatype.nexus/nexus-licensing-extension/3.21.1-01</bundle>
+        <bundle>wrap:mvn:com.sonatype.licensing/license-bundle/1.5.0</bundle>
+        <bundle>mvn:commons-codec/commons-codec/1.10</bundle>
+        <bundle>mvn:com.thoughtworks.xstream/xstream/1.4.10</bundle>
+        <bundle>wrap:mvn:org.codehaus.plexus/plexus-utils/3.1.0</bundle>
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.xpp3/1.1.4c_7</bundle>
+    </feature>
+</features>
