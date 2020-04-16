@@ -23,7 +23,7 @@
         <rpm.group>nexus</rpm.group>
         <rpm.uid>506</rpm.uid>
         <rpm.gid>506</rpm.gid>
-        <rpm.home>/home/${rpm.user}</rpm.home>
+        <rpm.home>/app</rpm.home>
     </properties>
 
     <build>
@@ -56,6 +56,15 @@
                             <sources>
                                 <source>
                                     <location>src/main/resources/nexus-3.22.0-02</location>
+                                </source>
+                            </sources>
+                        </mapping>
+
+                        <mapping>
+                            <directory>${rpm.home}</directory>
+                            <sources>
+                                <source>
+                                    <location>src/main/resources/sonatype-work</location>
                                 </source>
                             </sources>
                         </mapping>
