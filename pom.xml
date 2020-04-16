@@ -32,9 +32,16 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>rpm-maven-plugin</artifactId>
-
+                <version>2.2.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>rpm</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-
+                    <repackJars>false</repackJars>
                     <provides>
                         <provide>${rpm.name}</provide>
                     </provides>
