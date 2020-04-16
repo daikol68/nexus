@@ -52,7 +52,7 @@
                         </mapping>
 
                         <mapping>
-                            <directory>${rpm.home}</directory>
+                            <directory>${rpm.home}/nexus</directory>
                             <sources>
                                 <source>
                                     <location>src/main/resources/nexus-3.22.0-02</location>
@@ -61,7 +61,7 @@
                         </mapping>
 
                         <mapping>
-                            <directory>${rpm.home}</directory>
+                            <directory>${rpm.home}/sonatype-work</directory>
                             <sources>
                                 <source>
                                     <location>src/main/resources/sonatype-work</location>
